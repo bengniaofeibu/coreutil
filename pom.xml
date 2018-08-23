@@ -7,6 +7,18 @@
     <groupId>com.jiujiu.wisdom</groupId>
     <artifactId>core-util</artifactId>
     <version>Releases</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <distributionManagement>
         <repository>
@@ -15,4 +27,34 @@
             <url>http://139.196.194.172:8181/nexus/content/repositories/99rep/</url>
         </repository>
     </distributionManagement>
+
+     <properties>
+        <jackson.version>2.9.5</jackson.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+     </properties>
+
+      <dependencies>
+
+          <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>${jackson.version}</version>
+          </dependency>
+
+
+          <dependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-lang3</artifactId>
+              <version>${commons-lang3.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>commons-beanutils</groupId>
+              <artifactId>commons-beanutils</artifactId>
+              <version>${commons-beanutils.version}</version>
+          </dependency>
+
+
+      </dependencies>
 </project>
