@@ -32,6 +32,10 @@
         <jackson.version>2.9.5</jackson.version>
         <commons-lang3.version>3.4</commons-lang3.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
+        <lombok.version>1.16.18</lombok.version>
+        <httpClient.version>4.5.1</httpClient.version>
+        <httpCore.version>4.4.3</httpCore.version>
+        <json.version>20180130</json.version>
      </properties>
 
       <dependencies>
@@ -55,6 +59,30 @@
               <version>${commons-beanutils.version}</version>
           </dependency>
 
+          <dependency>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+              <scope>provided</scope>
+          </dependency>
+
+          <dependency>
+              <groupId>org.apache.httpcomponents</groupId>
+              <artifactId>httpclient</artifactId>
+              <version>${httpClient.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.apache.httpcomponents</groupId>
+              <artifactId>httpcore</artifactId>
+              <version>${httpCore.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.json</groupId>
+              <artifactId>json</artifactId>
+              <version>${json.version}</version>
+          </dependency>
 
       </dependencies>
 </project>

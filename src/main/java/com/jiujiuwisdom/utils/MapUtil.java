@@ -1,6 +1,7 @@
 package com.jiujiuwisdom.utils;
 
 import com.jiujiuwisdom.base.BaseMapUtil;
+import lombok.Data;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Set;
 /*
    map 工具类
  */
+@Data
 public class MapUtil<k, V> implements BaseMapUtil<k, V> {
 
     public Map<k, V> map;

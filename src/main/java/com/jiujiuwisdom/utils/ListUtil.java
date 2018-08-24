@@ -2,6 +2,7 @@ package com.jiujiuwisdom.utils;
 
 
 import com.jiujiuwisdom.base.BaseListUtil;
+import lombok.Data;
 
 import java.util.*;
 import java.util.function.Function;
@@ -12,6 +13,7 @@ import static java.util.stream.Collectors.*;
 /*
    list集合工具类
  */
+@Data
 public class ListUtil<E> implements BaseListUtil<E> {
 
 
@@ -30,7 +32,6 @@ public class ListUtil<E> implements BaseListUtil<E> {
 
 
     public ListUtil(List<E> list,boolean isReversed){
-        HashMap hashMap = new HashMap();
          this.list = list;
          this.isReversed = isReversed;
     }
@@ -280,4 +281,6 @@ public class ListUtil<E> implements BaseListUtil<E> {
     public int size() {
         return list.size();
     }
+
+
 }
