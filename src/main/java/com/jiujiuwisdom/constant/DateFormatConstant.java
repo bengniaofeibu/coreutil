@@ -3,7 +3,7 @@ package com.jiujiuwisdom.constant;
 /**
  *  时间格式常量
  */
-public abstract class DateFormat {
+public abstract class DateFormatConstant {
 
     public static final String TIME_PATTERN_LONG = "dd/MMM/yyyy:HH:mm:ss +0900";
 

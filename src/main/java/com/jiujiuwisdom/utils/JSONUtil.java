@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
    json工具类
  */
 @Slf4j
-public final class JsonUtil {
+public final class JSONUtil {
 
 
     /**

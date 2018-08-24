@@ -1,6 +1,7 @@
 package com.jiujiuwisdom.utils;
 
 
+import com.jiujiuwisdom.constant.BaseConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -25,8 +26,6 @@ import java.util.Map;
 public final class HttpUtil {
 
     private static CloseableHttpClient HTTP_CLIENT;
-
-    private static final String CHARSET = "UTF-8";
 
     static {
 
@@ -70,7 +69,7 @@ public final class HttpUtil {
 
                 StringBuilder urlStr = new StringBuilder(url).append("?");
 
-                urlStr =urlStr.append(EntityUtils.toString(new UrlEncodedFormEntity(getNameValuePairList(params)), CHARSET));
+                urlStr =urlStr.append(EntityUtils.toString(new UrlEncodedFormEntity(getNameValuePairList(params)), BaseConstant.CHARSET));
 
                 HttpGet httpGet = new HttpGet(urlStr.toString());
 
@@ -99,7 +98,7 @@ public final class HttpUtil {
 
                 HttpPost httpPost = new HttpPost(url);
 
-                httpPost.setEntity(new UrlEncodedFormEntity(getNameValuePairList(params), CHARSET));
+                httpPost.setEntity(new UrlEncodedFormEntity(getNameValuePairList(params), BaseConstant.CHARSET));
 
                 return getResponseEntity(HTTP_CLIENT.execute(httpPost));
             }
@@ -127,7 +126,7 @@ public final class HttpUtil {
 
         if (statusCode == 200) {
             HttpEntity entity = response.getEntity();
-            return entity != null ? EntityUtils.toString(entity, CHARSET) : null;
+            return entity != null ? EntityUtils.toString(entity, BaseConstant.CHARSET) : null;
         }
         log.error("response statusCode {}",statusCode);
         return null;

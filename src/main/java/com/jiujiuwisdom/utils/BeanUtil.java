@@ -1,30 +1,31 @@
 package com.jiujiuwisdom.utils;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public final class BeanUtil {
+@Slf4j
+public final class BeanUtil<E> {
 
     /**
      * map转实体bean
      * @param map
-     * @param object
+     * @param e
      * @return
      */
-    public static Object MapTobean(Map<String, Object> map, Object object) {
+    public static <E> E mapTobean(Map<String, Object> map, E e) {
 
-          if (map == null || object == null) return null;
+          if (map == null || e == null) return null;
 
         try {
-            BeanUtils.populate(object, map);
-            return  object;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            BeanUtils.populate(e, map);
+            return e;
+        } catch (Exception ex) {
+            log.error("map转实体bean error {}",ex.getMessage());
         }
         return null;
     }
@@ -32,14 +33,12 @@ public final class BeanUtil {
 
     /**
      * 实体转换成map
-     * @param object
      * @return
      */
-    public static Map<String,Object> beanToMap(Object object){
+    public static <E> Map<String,Object> beanToMap(E e){
 
-        if (object == null) return null;
+        if (e == null) return null;
 
-        return JsonUtil.parseObject(JsonUtil.toJSONString(object),Map.class);
+        return JSONUtil.parseObject(JSONUtil.toJSONString(e),Map.class);
     }
-
 }
