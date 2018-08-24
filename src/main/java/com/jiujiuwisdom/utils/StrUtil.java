@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class StrUtils {
+public final class StrUtil {
 
 
     /**

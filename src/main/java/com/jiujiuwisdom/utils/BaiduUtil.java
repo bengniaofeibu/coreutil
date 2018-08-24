@@ -1,11 +1,13 @@
 package com.jiujiuwisdom.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaiduUtils {
+@Slf4j
+public final class BaiduUtil {
 
     private static String ak = "IK5AlGXoZ23tDAGjldRalicbhdpsrKwE";
 
@@ -31,9 +33,16 @@ public class BaiduUtils {
             return new JSONObject(json.substring(29, json.length() - 1)).getJSONObject("result").getJSONObject("addressComponent").getString("city");
         }catch (Exception e){
 
+            log.error(e.getMessage());
+
         }finally {
             params = null;
         }
         return null;
+    }
+
+    public static void main(String[] args){
+        String city = getCityName("31.266302","121.557401");
+        System.out.println(city);
     }
 }

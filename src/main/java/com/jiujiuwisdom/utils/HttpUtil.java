@@ -1,6 +1,7 @@
 package com.jiujiuwisdom.utils;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -20,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HttpUtil {
+@Slf4j
+public final class HttpUtil {
 
     private static CloseableHttpClient HTTP_CLIENT;
 
@@ -37,7 +39,7 @@ public class HttpUtil {
     /**
      * GET 请求
      *
-     * @param url
+     * @param url 请求地址
      * @return
      */
     public static String doGet(String url) {
@@ -48,16 +50,20 @@ public class HttpUtil {
             return getResponseEntity(HTTP_CLIENT.execute(httpGet));
 
         } catch (IOException e) {
-            e.printStackTrace();
-
+            log.error("doPost doGet!!! {}, url {} ",e.getMessage(),url);
         } finally {
-
             closeHttpClient();
         }
         return null;
     }
 
 
+    /**
+     *  带参数的GET请求
+     * @param url  请求地址
+     * @param params 请求参数
+     * @return
+     */
     public static String doGet(String url, Map<String, Object> params) {
         try {
             if (params != null && params.size() > 0) {
@@ -72,17 +78,20 @@ public class HttpUtil {
 
             }
         } catch (IOException e) {
-
-            e.printStackTrace();
-
+            log.error("doPost doGet!!! {}, url {} ",e.getMessage(),url);
         } finally {
-
             closeHttpClient();
         }
         return null;
     }
 
 
+    /**
+     *  POST 请求
+     * @param url 请求地址
+     * @param params 请求参数
+     * @return
+     */
     public static String doPost(String url, Map<String, Object> params) {
 
         try {
@@ -95,16 +104,10 @@ public class HttpUtil {
                 return getResponseEntity(HTTP_CLIENT.execute(httpPost));
             }
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("doPost error!!! {}, url {} ",e.getMessage(),url);
         } finally {
-
             closeHttpClient();
-
         }
         return null;
     }
@@ -119,10 +122,14 @@ public class HttpUtil {
     }
 
     private static String getResponseEntity(CloseableHttpResponse response) throws IOException {
-        if (response.getStatusLine().getStatusCode() == 200) {
+
+        int statusCode = response.getStatusLine().getStatusCode();
+
+        if (statusCode == 200) {
             HttpEntity entity = response.getEntity();
             return entity != null ? EntityUtils.toString(entity, CHARSET) : null;
         }
+        log.error("response statusCode {}",statusCode);
         return null;
     }
 
@@ -132,7 +139,7 @@ public class HttpUtil {
             try {
                 HTTP_CLIENT.close();
             } catch (IOException e) {
-                e.printStackTrace();
+               log.error("http_client close {}",e.getMessage());
             }
         }
     }

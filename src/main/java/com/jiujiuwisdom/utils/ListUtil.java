@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.*;
    list集合工具类
  */
 @Data
-public class ListUtil<E> implements BaseListUtil<E> {
+public final class ListUtil<E> implements BaseListUtil<E> {
 
 
     private List<E> list;

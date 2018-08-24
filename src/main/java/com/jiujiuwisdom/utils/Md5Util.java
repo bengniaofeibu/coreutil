@@ -3,7 +3,7 @@ package com.jiujiuwisdom.utils;
 
 import java.security.MessageDigest;
 
-public class Md5Util {
+public final class Md5Util {
 
     //用于加密的字符
     private static final char MD5_STRING[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',

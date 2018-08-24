@@ -6,7 +6,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-public class BeanUtil {
+public final class BeanUtil {
 
     /**
      * map转实体bean

@@ -2,7 +2,7 @@ package com.jiujiuwisdom.utils;
 
 import java.util.UUID;
 
-public class UUIDUtil {
+public final class UUIDUtil {
 
     /**
      * 生成UUID

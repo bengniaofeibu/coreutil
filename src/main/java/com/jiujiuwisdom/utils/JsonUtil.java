@@ -2,19 +2,29 @@ package com.jiujiuwisdom.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
 /*
    json工具类
  */
-public class JsonUtil {
+@Slf4j
+public final class JsonUtil {
 
+
+    /**
+     *  实体bean转换成json字符串
+     * @param object
+     * @return
+     */
     public static String toJSONString(Object object) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {
-            e.printStackTrace();
+
+            log.error("Object 转换为 json error {}",e.getMessage());
+
             return null;
         }
     }
@@ -24,7 +34,7 @@ public class JsonUtil {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(text, clazz);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("json 转换为 Object error {}",e.getMessage());
             return null;
         }
     }
