@@ -3,13 +3,16 @@ package com.jiujiuwisdom.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-@Slf4j
 public final class BeanUtil<E> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeanUtil.class);
 
     /**
      * map转实体bean
@@ -25,7 +28,7 @@ public final class BeanUtil<E> {
             BeanUtils.populate(e, map);
             return e;
         } catch (Exception ex) {
-            log.error("map转实体bean error {}",ex.getMessage());
+            LOGGER.error("map转实体bean error {}",ex.getMessage());
         }
         return null;
     }

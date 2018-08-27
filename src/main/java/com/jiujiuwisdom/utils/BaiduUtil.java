@@ -1,13 +1,15 @@
 package com.jiujiuwisdom.utils;
 
-import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Slf4j
 public final class BaiduUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaiduUtil.class);
 
     private static String ak = "IK5AlGXoZ23tDAGjldRalicbhdpsrKwE";
 
@@ -33,7 +35,7 @@ public final class BaiduUtil {
             return new JSONObject(json.substring(29, json.length() - 1)).getJSONObject("result").getJSONObject("addressComponent").getString("city");
         }catch (Exception e){
 
-            log.error(e.getMessage());
+            LOGGER.error(e.getMessage());
 
         }finally {
             params = null;

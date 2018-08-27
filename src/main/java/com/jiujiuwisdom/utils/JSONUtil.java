@@ -3,12 +3,15 @@ package com.jiujiuwisdom.utils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
    json工具类
  */
-@Slf4j
 public final class JSONUtil {
+
+    private static final Logger LOGGER  = LoggerFactory.getLogger(JSONUtil.class);
 
 
     /**
@@ -23,7 +26,7 @@ public final class JSONUtil {
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {
 
-            log.error("Object 转换为 json error {}",e.getMessage());
+            LOGGER.error("Object 转换为 json error {}",e.getMessage());
 
             return null;
         }
@@ -34,7 +37,7 @@ public final class JSONUtil {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(text, clazz);
         } catch (Exception e) {
-            log.error("json 转换为 Object error {}",e.getMessage());
+            LOGGER.error("json 转换为 Object error {}",e.getMessage());
             return null;
         }
     }

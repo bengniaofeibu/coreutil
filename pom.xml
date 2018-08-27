@@ -37,7 +37,7 @@
         <httpCore.version>4.4.3</httpCore.version>
         <json.version>20180130</json.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <slf4j-simple.version>1.7.5</slf4j-simple.version>
+        <logback.version>1.1.7</logback.version>
         <jedis.version>2.9.0</jedis.version>
      </properties>
 
@@ -101,18 +101,19 @@
           </dependency>
 
           <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-nop</artifactId>
-              <version>${slf4j.version}</version>
-              <scope>test</scope>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-core</artifactId>
+              <version>${logback.version}</version>
           </dependency>
-
-
           <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-simple</artifactId>
-              <version>${slf4j-simple.version}</version>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-access</artifactId>
+              <version>${logback.version}</version>
           </dependency>
-
+          <dependency>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-classic</artifactId>
+              <version>${logback.version}</version>
+          </dependency>
       </dependencies>
 </project>

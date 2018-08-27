@@ -15,6 +15,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -22,8 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 public final class HttpUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtil.class);
 
     private static CloseableHttpClient HTTP_CLIENT;
 
@@ -49,7 +52,7 @@ public final class HttpUtil {
             return getResponseEntity(HTTP_CLIENT.execute(httpGet));
 
         } catch (IOException e) {
-            log.error("doPost doGet!!! {}, url {} ",e.getMessage(),url);
+            LOGGER.error("doPost doGet!!! {}, url {} ",e.getMessage(),url);
         } finally {
             closeHttpClient();
         }
@@ -77,7 +80,7 @@ public final class HttpUtil {
 
             }
         } catch (IOException e) {
-            log.error("doPost doGet!!! {}, url {} ",e.getMessage(),url);
+            LOGGER.error("doPost doGet!!! {}, url {} ",e.getMessage(),url);
         } finally {
             closeHttpClient();
         }
@@ -104,7 +107,7 @@ public final class HttpUtil {
             }
 
         } catch (Exception e) {
-            log.error("doPost error!!! {}, url {} ",e.getMessage(),url);
+            LOGGER.error("doPost error!!! {}, url {} ",e.getMessage(),url);
         } finally {
             closeHttpClient();
         }
@@ -128,7 +131,7 @@ public final class HttpUtil {
             HttpEntity entity = response.getEntity();
             return entity != null ? EntityUtils.toString(entity, BaseConstant.CHARSET) : null;
         }
-        log.error("response statusCode {}",statusCode);
+        LOGGER.error("response statusCode {}",statusCode);
         return null;
     }
 
@@ -138,7 +141,7 @@ public final class HttpUtil {
             try {
                 HTTP_CLIENT.close();
             } catch (IOException e) {
-               log.error("http_client close {}",e.getMessage());
+                LOGGER.error("http_client close {}",e.getMessage());
             }
         }
     }

@@ -1,22 +1,25 @@
-package com.jiujiuwisdom.utils;
+package com.jiujiuwisdom.config;
 
-import lombok.extern.slf4j.Slf4j;
+import com.jiujiuwisdom.utils.RedisClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-@Slf4j
-public class RedisUtil {
+public class RedisConfig {
 
-    private static final PropertiesUtil APPLICATION = new PropertiesUtil("application.yml");
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
+
+    private static final PropertiesConfig APPLICATION = new PropertiesConfig("bootstrap.yml");
 
     private static JedisPool JEDIS_POOL;
 
-    private static final String REDIS_TEST_PROPERTIES = "redis-test.properties";
+    private static final String REDIS_TEST_PROPERTIES = "redis/redis-test.properties";
 
-    private static final String REDIS_PROD_PROPERTIES = "redis-prod.properties";
+    private static final String REDIS_PROD_PROPERTIES = "redis/redis-prod.properties";
 
     private static final String ACTIVE_PROD = "prod";
 
@@ -39,8 +42,10 @@ public class RedisUtil {
 
    static {
 
-        if (ACTIVE_PROD.equals(APPLICATION.getValue("active"))) {
-            ACTIVE_FLAG = true;
+       String profile = APPLICATION.getValue("profile");
+       LOGGER.info("profile {}",profile);
+       if (ACTIVE_PROD.equals(profile)) {
+               ACTIVE_FLAG = true;
         }
 
         //初始化Jedis
@@ -49,23 +54,27 @@ public class RedisUtil {
 
     private static void InitJedisPool() {
 
+
        //断言是否已经被锁住，没有就继续执行
        assert !LOCK_POOL.isHeldByCurrentThread();
 
         LOCK_POOL.lock();
-        PropertiesUtil PROPERTIES;
+        PropertiesConfig PROPERTIES;
         if (ACTIVE_FLAG) {
 
-            PROPERTIES = new PropertiesUtil(REDIS_PROD_PROPERTIES);
+            PROPERTIES = new PropertiesConfig(REDIS_PROD_PROPERTIES);
 
         } else {
 
-            PROPERTIES = new PropertiesUtil(REDIS_TEST_PROPERTIES);
+            PROPERTIES = new PropertiesConfig(REDIS_TEST_PROPERTIES);
         }
 
          String host = PROPERTIES.getValue("redis.host");
+
          int port = Integer.valueOf(PROPERTIES.getValue("redis.port"));
+
          String pwd = PROPERTIES.getValue("redis.pwd");
+
          int db = Integer.valueOf(PROPERTIES.getValue("redis.db"));
 
 
@@ -78,11 +87,11 @@ public class RedisUtil {
         try {
 
             JEDIS_POOL = new JedisPool(config, host,port,TIMEOUT,pwd,db);
-            log.info("host {}, port {}, db {}, jedisPool 初始化成功。。。", host,port,db);
+            LOGGER.info("host {}, port {}, db {}, jedisPool 初始化成功。。。", host,port,db);
 
         } catch (Exception e) {
 
-            log.error("jedisPool 初始化失败 {}", e.getMessage());
+            LOGGER.error("jedisPool 初始化失败 {}", e.getMessage());
 
         }finally {
 
@@ -106,7 +115,7 @@ public class RedisUtil {
                 jedis = JEDIS_POOL.getResource();
             }
         } catch (Exception e) {
-            log.error("获取 jedis error {}",e.getMessage());
+            LOGGER.error("获取 jedis error {}",e.getMessage());
         }finally{
             returnResource(jedis);
             LOCK_JEDIS.unlock();
@@ -120,8 +129,8 @@ public class RedisUtil {
      * @param jedis
      */
     public static void returnResource(final Jedis jedis) {
-        if (jedis != null && JEDIS_POOL !=null) {
-            JEDIS_POOL.returnResource(jedis);
+        if (jedis != null) {
+            jedis.close();
         }
     }
 
