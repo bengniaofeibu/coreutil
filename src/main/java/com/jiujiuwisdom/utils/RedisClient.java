@@ -292,7 +292,7 @@ public class RedisClient {
      * @param strings
      * @return 列表的长度
      */
-    public static Long lpush(String key,String strings){
+    public static Long lpush(String key,String...strings){
       return RedisConfig.getJedis().lpush(key,strings);
     }
 
