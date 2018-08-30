@@ -1,12 +1,10 @@
 package com.jiujiuwisdom.utils;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class AppletResult implements Serializable{
+public class AppletResult<T> implements Serializable{
 
     private static final long serialVersionUID = 8360101072462967795L;
 
@@ -17,7 +15,7 @@ public class AppletResult implements Serializable{
      String msg;
 
      /** 业务返回具体信息 **/
-     Object data;
+     T data;
 
     public Integer getCode() {
         return code;
@@ -35,11 +33,11 @@ public class AppletResult implements Serializable{
         this.msg = msg;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
