@@ -1,5 +1,6 @@
 package com.jiujiuwisdom.utils;
 
+import lombok.Data;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 public final class BaiduUtil {
+
+    private String name;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaiduUtil.class);
 

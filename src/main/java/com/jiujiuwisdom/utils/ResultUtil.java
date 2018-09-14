@@ -33,4 +33,11 @@ public class ResultUtil {
         result.setMsg(baseEnum.getMsg());
         return result;
     }
+
+    public static AppletResult error(String msg){
+        AppletResult result = new AppletResult();
+        result.setCode(400);
+        result.setMsg(msg);
+        return result;
+    }
 }

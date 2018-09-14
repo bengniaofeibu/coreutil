@@ -1,10 +1,12 @@
 package com.jiujiuwisdom.utils;
 
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 
 
 /**
@@ -190,5 +192,28 @@ public final class DateUtil {
      */
     public static String format(LocalDateTime localDateTime, String pattern) {
         return localDateTime.format(DateTimeFormatter.ofPattern(pattern));
+    }
+
+    /**
+     * 日期格式化
+     *
+     * @param date
+     * @param pattern
+     * @return
+     */
+    public static String format(Date date, String pattern) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
+    }
+
+    /**
+     *  date 转换成 LocalDateTime
+     * @param date
+     * @return
+     */
+    public static LocalDateTime dateToLocalDateTime(Date date){
+           Instant instant = date.toInstant();
+           ZoneId zoneId = ZoneId.systemDefault();
+           return LocalDateTime.ofInstant(instant, zoneId);
     }
 }

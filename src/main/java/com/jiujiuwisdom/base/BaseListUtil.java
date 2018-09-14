@@ -6,13 +6,6 @@ import java.util.function.Predicate;
 
 public interface BaseListUtil<E> extends List<E> {
 
-    /**
-     * bean集合排序
-     *
-     * @param function 比较lamb
-     */
-    void sort(Function function);
-
 
     /**
      * 集合过滤

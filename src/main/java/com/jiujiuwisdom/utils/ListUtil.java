@@ -128,24 +128,6 @@ public final class ListUtil<E> implements BaseListUtil<E> {
         return list.subList(fromIndex,toIndex);
     }
 
-    /**
-     *  bean集合排序
-     * @param function 比较lamb
-     */
-    @Override
-    public void sort(Function function){
-
-        //判断是否需要倒序
-        if (isReversed) {
-
-            list.stream().sorted(Comparator.comparing(function).reversed());
-
-        }else {
-
-            list.stream().sorted(Comparator.comparing(function));
-        }
-    }
-
 
     /**
      * 集合过滤
