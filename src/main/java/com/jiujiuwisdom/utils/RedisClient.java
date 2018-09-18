@@ -10,14 +10,21 @@ import java.util.Set;
 
 public class RedisClient {
 
+    private RedisConfig redisConfig;
+
+    public  RedisClient(String hostName,String portName,String pwdName,String dbName){
+
+        redisConfig = new RedisConfig(hostName, portName, pwdName, dbName);
+    }
+
     /**
      *  设置
      * @param key  缓存key
      * @param value 缓存value
      * @return
      */
-   public static String set(String key, String value){
-       return RedisConfig.getJedis().set(key, value);
+   public String set(String key, String value){
+       return redisConfig.getJedis().set(key, value);
    }
 
     /**
@@ -25,8 +32,8 @@ public class RedisClient {
      * @param keysvalues  缓存key
      * @return
      */
-    public static String mset(String...keysvalues){
-        return RedisConfig.getJedis().mset(keysvalues);
+    public String mset(String...keysvalues){
+        return redisConfig.getJedis().mset(keysvalues);
     }
 
     /**
@@ -34,8 +41,8 @@ public class RedisClient {
      * @param keysvalues  缓存key
      * @return
      */
-    public static List<String> mget(String...keysvalues){
-        return RedisConfig.getJedis().mget(keysvalues);
+    public  List<String> mget(String...keysvalues){
+        return redisConfig.getJedis().mget(keysvalues);
     }
 
 
@@ -44,8 +51,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-   public static String get(String key){
-       return RedisConfig.getJedis().get(key);
+   public  String get(String key){
+       return redisConfig.getJedis().get(key);
    }
 
     /**
@@ -53,8 +60,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static String get(String key,long start,long end){
-        return RedisConfig.getJedis().getrange(key,start,end);
+    public  String get(String key,long start,long end){
+        return redisConfig.getJedis().getrange(key,start,end);
     }
 
     /**
@@ -62,8 +69,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-   public static long del(String...key){
-       return RedisConfig.getJedis().del(key);
+   public  long del(String...key){
+       return redisConfig.getJedis().del(key);
    }
 
     /**
@@ -71,8 +78,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-   public static boolean exists(String key){
-        return RedisConfig.getJedis().exists(key);
+   public  boolean exists(String key){
+        return redisConfig.getJedis().exists(key);
    }
 
 
@@ -81,8 +88,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-   public static Long incr(String key){
-      return RedisConfig.getJedis().incr(key);
+   public  Long incr(String key){
+      return redisConfig.getJedis().incr(key);
    }
 
     /**
@@ -90,8 +97,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Long incrBy(String key,long increment){
-        return RedisConfig.getJedis().incrBy(key,increment);
+    public  Long incrBy(String key,long increment){
+        return redisConfig.getJedis().incrBy(key,increment);
     }
 
 
@@ -100,8 +107,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Long decr(String key){
-        return RedisConfig.getJedis().decr(key);
+    public  Long decr(String key){
+        return redisConfig.getJedis().decr(key);
     }
 
     /**
@@ -110,8 +117,8 @@ public class RedisClient {
      * @param increment
      * @return
      */
-    public static Long decrBy(String key,long increment){
-        return RedisConfig.getJedis().decrBy(key,increment);
+    public  Long decrBy(String key,long increment){
+        return redisConfig.getJedis().decrBy(key,increment);
     }
 
 
@@ -121,8 +128,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Long append(String key,String value){
-        return RedisConfig.getJedis().append(key,value);
+    public  Long append(String key,String value){
+        return redisConfig.getJedis().append(key,value);
     }
 
 
@@ -133,8 +140,8 @@ public class RedisClient {
      * @param value
      * @return
      */
-   public static String getSet(String key,String value){
-       return RedisConfig.getJedis().getSet(key,value);
+   public  String getSet(String key,String value){
+       return redisConfig.getJedis().getSet(key,value);
    }
 
     /**
@@ -144,8 +151,8 @@ public class RedisClient {
      * @param time 过期时间
      * @return
      */
-    public static String setnxAndExpire(String key, String value, long time){
-        return RedisConfig.getJedis().set(key, value,"nx","ex",time);
+    public  String setnxAndExpire(String key, String value, long time){
+        return redisConfig.getJedis().set(key, value,"nx","ex",time);
     }
 
     /**
@@ -154,8 +161,8 @@ public class RedisClient {
      * @param value 缓存value
      * @return
      */
-    public static Long setnx(String key, String value){
-        return RedisConfig.getJedis().setnx(key,value);
+    public  Long setnx(String key, String value){
+        return redisConfig.getJedis().setnx(key,value);
     }
 
     /**
@@ -165,8 +172,8 @@ public class RedisClient {
      * @param value  缓存value
      * @return
      */
-    public static String setexAndExpire(String key,String value, int seconds){
-        return RedisConfig.getJedis().setex(key,seconds,value);
+    public  String setexAndExpire(String key,String value, int seconds){
+        return redisConfig.getJedis().setex(key,seconds,value);
     }
 
 
@@ -177,8 +184,8 @@ public class RedisClient {
      * @param value hash value
      * @return
      */
-    public static Long hset(String key,String field,String value){
-        return RedisConfig.getJedis().hset(key,field,value);
+    public  Long hset(String key,String field,String value){
+        return redisConfig.getJedis().hset(key,field,value);
     }
 
     /**
@@ -188,8 +195,8 @@ public class RedisClient {
      * @param value hash value
      * @return
      */
-    public static Long hsetnx(String key,String field,String value){
-        return RedisConfig.getJedis().hsetnx(key,field,value);
+    public  Long hsetnx(String key,String field,String value){
+        return redisConfig.getJedis().hsetnx(key,field,value);
     }
 
     /**
@@ -198,16 +205,16 @@ public class RedisClient {
      * @param hash
      * @return
      */
-    public static String hmset(String key, Map<String,String> hash){
-       return RedisConfig.getJedis().hmset(key,hash);
+    public  String hmset(String key, Map<String,String> hash){
+       return redisConfig.getJedis().hmset(key,hash);
     }
 
     /**
      *  返回哈希表 key 中给定域 field 的值
      * @return
      */
-    public static String hget(String key,String field){
-        return RedisConfig.getJedis().hget(key,field);
+    public  String hget(String key,String field){
+        return redisConfig.getJedis().hget(key,field);
     }
 
     /**
@@ -216,8 +223,8 @@ public class RedisClient {
      * @param fields
      * @return
      */
-    public static List<String> hmget(String key,String...fields){
-        return RedisConfig.getJedis().hmget(key,fields);
+    public  List<String> hmget(String key,String...fields){
+        return redisConfig.getJedis().hmget(key,fields);
     }
 
     /**
@@ -233,8 +240,8 @@ public class RedisClient {
      * @param value
      * @return
      */
-    public static Long hincrBy(String key,String field,long value){
-          return RedisConfig.getJedis().hincrBy(key,field,value);
+    public  Long hincrBy(String key,String field,long value){
+          return redisConfig.getJedis().hincrBy(key,field,value);
     }
 
     /**
@@ -243,8 +250,8 @@ public class RedisClient {
      * @param field
      * @return
      */
-    public static Long hdel(String key,String...field){
-        return RedisConfig.getJedis().hdel(key,field);
+    public Long hdel(String key,String...field){
+        return redisConfig.getJedis().hdel(key,field);
     }
 
     /**
@@ -253,8 +260,8 @@ public class RedisClient {
      * @param field
      * @return
      */
-    public static boolean hexists(String key, String field){
-        return RedisConfig.getJedis().hexists(key,field);
+    public boolean hexists(String key, String field){
+        return redisConfig.getJedis().hexists(key,field);
     }
 
 
@@ -263,8 +270,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Set<String> hkeys(String key){
-        return RedisConfig.getJedis().hkeys(key);
+    public  Set<String> hkeys(String key){
+        return redisConfig.getJedis().hkeys(key);
     }
 
     /**
@@ -272,8 +279,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static List<String> hvals(String key){
-        return RedisConfig.getJedis().hvals(key);
+    public  List<String> hvals(String key){
+        return redisConfig.getJedis().hvals(key);
     }
 
     /**
@@ -281,8 +288,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Map<String,String> hgetAll(String key){
-       return RedisConfig.getJedis().hgetAll(key);
+    public  Map<String,String> hgetAll(String key){
+       return redisConfig.getJedis().hgetAll(key);
 
     }
 
@@ -292,8 +299,8 @@ public class RedisClient {
      * @param strings
      * @return 列表的长度
      */
-    public static Long lpush(String key,String...strings){
-      return RedisConfig.getJedis().lpush(key,strings);
+    public Long lpush(String key,String...strings){
+      return redisConfig.getJedis().lpush(key,strings);
     }
 
     /**
@@ -302,8 +309,8 @@ public class RedisClient {
      * @param key
      * @return  列表的头元素  当 key 不存在时，返回 nil
      */
-    public static String lpop(String key){
-        return RedisConfig.getJedis().lpop(key);
+    public String lpop(String key){
+        return redisConfig.getJedis().lpop(key);
     }
 
     /**
@@ -312,8 +319,8 @@ public class RedisClient {
      * @param strings
      * @return 列表的长度
      */
-    public static Long rpush(String key,String...strings){
-       return RedisConfig.getJedis().rpush(key,strings);
+    public Long rpush(String key,String...strings){
+       return redisConfig.getJedis().rpush(key,strings);
     }
 
     /**
@@ -321,8 +328,8 @@ public class RedisClient {
      * @param key
      * @return 列表的尾元素 当 key 不存在时，返回 nil
      */
-    public static String rpop(String key){
-       return RedisConfig.getJedis().rpop(key);
+    public String rpop(String key){
+       return redisConfig.getJedis().rpop(key);
     }
 
     /**
@@ -332,8 +339,8 @@ public class RedisClient {
      * @param dstkey
      * @return
      */
-    public static String rpoplpush(String srckey,String dstkey){
-      return RedisConfig.getJedis().rpoplpush(srckey,dstkey);
+    public String rpoplpush(String srckey,String dstkey){
+      return redisConfig.getJedis().rpoplpush(srckey,dstkey);
     }
 
     /**
@@ -343,8 +350,8 @@ public class RedisClient {
      * @param value
      * @return
      */
-    public static String lset(String key,long index,String value){
-      return RedisConfig.getJedis().lset(key, index, value);
+    public String lset(String key,long index,String value){
+      return redisConfig.getJedis().lset(key, index, value);
     }
 
     /**
@@ -357,8 +364,8 @@ public class RedisClient {
      * @param value
      * @return
      */
-    public static long lrem(String key,long count,String value){
-     return RedisConfig.getJedis().lrem(key, count, value);
+    public long lrem(String key,long count,String value){
+     return redisConfig.getJedis().lrem(key, count, value);
     }
 
     /**
@@ -368,8 +375,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static String ltrim(String key,long start,long end){
-      return RedisConfig.getJedis().ltrim(key, start, end);
+    public String ltrim(String key,long start,long end){
+      return redisConfig.getJedis().ltrim(key, start, end);
     }
 
     /**
@@ -379,8 +386,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static List<String> lrange(String key,long start,long end){
-      return RedisConfig.getJedis().lrange(key, start, end);
+    public List<String> lrange(String key,long start,long end){
+      return redisConfig.getJedis().lrange(key, start, end);
     }
 
     /**
@@ -388,8 +395,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Long llen(String key){
-        return RedisConfig.getJedis().llen(key);
+    public Long llen(String key){
+        return redisConfig.getJedis().llen(key);
     }
 
     /**
@@ -398,8 +405,8 @@ public class RedisClient {
      * @param index
      * @return
      */
-    public static String lindex(String key,long index){
-       return RedisConfig.getJedis().lindex(key, index);
+    public  String lindex(String key,long index){
+       return redisConfig.getJedis().lindex(key, index);
     }
 
     /**
@@ -409,8 +416,8 @@ public class RedisClient {
      * @param keys
      * @return
      */
-    public static List<String> blpop(String...keys){
-     return RedisConfig.getJedis().blpop(keys);
+    public List<String> blpop(String...keys){
+     return redisConfig.getJedis().blpop(keys);
     }
 
 
@@ -422,8 +429,8 @@ public class RedisClient {
      * @param timeout 等待超时时间
      * @return
      */
-    public static List<String> blpop(int timeout,String...keys){
-        return RedisConfig.getJedis().blpop(timeout,keys);
+    public List<String> blpop(int timeout,String...keys){
+        return redisConfig.getJedis().blpop(timeout,keys);
     }
 
     /**
@@ -433,8 +440,8 @@ public class RedisClient {
      * @param keys
      * @return
      */
-    public static List<String> brpop(String...keys){
-        return RedisConfig.getJedis().brpop(keys);
+    public  List<String> brpop(String...keys){
+        return redisConfig.getJedis().brpop(keys);
     }
 
     /**
@@ -445,8 +452,8 @@ public class RedisClient {
      * @param timeout 等待超时时间
      * @return
      */
-    public static List<String> brpop(int timeout,String...keys){
-        return RedisConfig.getJedis().brpop(timeout,keys);
+    public  List<String> brpop(int timeout,String...keys){
+        return redisConfig.getJedis().brpop(timeout,keys);
     }
 
     /**
@@ -455,8 +462,8 @@ public class RedisClient {
      * @param members
      * @return
      */
-    public static Long sadd(String key,String...members){
-       return RedisConfig.getJedis().sadd(key,members);
+    public Long sadd(String key,String...members){
+       return redisConfig.getJedis().sadd(key,members);
     }
 
     /**
@@ -464,8 +471,8 @@ public class RedisClient {
      * @param keys
      * @return
      */
-    public static Set<String> sdiff(String...keys){
-       return RedisConfig.getJedis().sdiff(keys);
+    public Set<String> sdiff(String...keys){
+       return redisConfig.getJedis().sdiff(keys);
     }
 
     /**
@@ -473,8 +480,8 @@ public class RedisClient {
      * @param keys
      * @return
      */
-    public static Set<String> sinter(String...keys){
-       return RedisConfig.getJedis().sinter(keys);
+    public  Set<String> sinter(String...keys){
+       return redisConfig.getJedis().sinter(keys);
     }
 
     /**
@@ -482,8 +489,8 @@ public class RedisClient {
      * @param keys
      * @return
      */
-    public static Set<String> sunion (String...keys){
-        return RedisConfig.getJedis().sunion(keys);
+    public Set<String> sunion (String...keys){
+        return redisConfig.getJedis().sunion(keys);
     }
 
 
@@ -494,8 +501,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static boolean sismember(String key,String member){
-        return RedisConfig.getJedis().sismember(key,member);
+    public boolean sismember(String key,String member){
+        return redisConfig.getJedis().sismember(key,member);
 
     }
 
@@ -504,8 +511,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static Set<String> smembers(String key){
-        return RedisConfig.getJedis().smembers(key);
+    public  Set<String> smembers(String key){
+        return redisConfig.getJedis().smembers(key);
     }
 
     /**
@@ -515,8 +522,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Long smove(String srckey,String dstkey,String member){
-        return RedisConfig.getJedis().smove(srckey,dstkey,member);
+    public Long smove(String srckey,String dstkey,String member){
+        return redisConfig.getJedis().smove(srckey,dstkey,member);
 
     }
 
@@ -525,8 +532,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static String spop(String key){
-      return RedisConfig.getJedis().spop(key);
+    public String spop(String key){
+      return redisConfig.getJedis().spop(key);
     }
 
     /**
@@ -537,8 +544,8 @@ public class RedisClient {
      * @param count 返回一个包含 count 个元素的数组，数组中的元素各不相同。如果 count 大于等于集合基数，那么返回整个集合。
      * @return
      */
-    public static Set<String> spop(String key,int count){
-        return RedisConfig.getJedis().spop(key,count);
+    public Set<String> spop(String key,int count){
+        return redisConfig.getJedis().spop(key,count);
     }
 
     /**
@@ -546,8 +553,8 @@ public class RedisClient {
      * @param key
      * @return
      */
-    public static String srandmember(String key){
-        return RedisConfig.getJedis().srandmember(key);
+    public  String srandmember(String key){
+        return redisConfig.getJedis().srandmember(key);
     }
 
     /**
@@ -558,8 +565,8 @@ public class RedisClient {
      *               如果 count 为负数，那么命令返回一个数组，数组中的元素可能会重复出现多次，而数组的长度为 count 的绝对值
      * @return
      */
-    public static List<String> srandmember(String key,int count){
-        return RedisConfig.getJedis().srandmember(key,count);
+    public List<String> srandmember(String key,int count){
+        return redisConfig.getJedis().srandmember(key,count);
     }
 
 
@@ -569,8 +576,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Long srem(String key,String...member){
-        return RedisConfig.getJedis().srem(key,member);
+    public Long srem(String key,String...member){
+        return redisConfig.getJedis().srem(key,member);
     }
 
     /**
@@ -580,8 +587,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Long zadd(String key,double score,String member){
-        return RedisConfig.getJedis().zadd(key,score,member);
+    public Long zadd(String key,double score,String member){
+        return redisConfig.getJedis().zadd(key,score,member);
     }
 
     /**
@@ -590,8 +597,8 @@ public class RedisClient {
      * @param members
      * @return
      */
-    public static Long zadd(String key,Map<String,Double> members){
-        return RedisConfig.getJedis().zadd(key,members);
+    public Long zadd(String key,Map<String,Double> members){
+        return redisConfig.getJedis().zadd(key,members);
     }
 
     /**
@@ -601,8 +608,8 @@ public class RedisClient {
      * @param max
      * @return
      */
-    public static Long zadd(String key,double min,double max){
-        return RedisConfig.getJedis().zcount(key,min,max);
+    public Long zadd(String key,double min,double max){
+        return redisConfig.getJedis().zcount(key,min,max);
     }
 
 
@@ -613,8 +620,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Double zincrby(String key,double score,String member){
-        return RedisConfig.getJedis().zincrby(key,score,member);
+    public Double zincrby(String key,double score,String member){
+        return redisConfig.getJedis().zincrby(key,score,member);
     }
 
     /**
@@ -624,8 +631,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static Set<String> zincrby(String key,long start,long end){
-        return RedisConfig.getJedis().zrange(key,start,end);
+    public Set<String> zincrby(String key,long start,long end){
+        return redisConfig.getJedis().zrange(key,start,end);
     }
 
     /**
@@ -635,8 +642,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static Long zrangeByScore(String key,int start,int end){
-        return RedisConfig.getJedis().zremrangeByRank(key,start,end);
+    public Long zrangeByScore(String key,int start,int end){
+        return redisConfig.getJedis().zremrangeByRank(key,start,end);
     }
 
 
@@ -647,8 +654,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static Set<String> zrangeByScore(String key,double min,double max,int start,int end){
-        return RedisConfig.getJedis().zrangeByScore(key,min,max,start,end);
+    public Set<String> zrangeByScore(String key,double min,double max,int start,int end){
+        return redisConfig.getJedis().zrangeByScore(key,min,max,start,end);
     }
 
     /**
@@ -658,8 +665,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static Set<String> zrevrangeByScore(String key,double max,double min,int start,int end){
-        return RedisConfig.getJedis().zrevrangeByScore(key,max,min,start,end);
+    public Set<String> zrevrangeByScore(String key,double max,double min,int start,int end){
+        return redisConfig.getJedis().zrevrangeByScore(key,max,min,start,end);
     }
 
     /**
@@ -669,8 +676,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Long zrangeByScore(String key,String...member){
-        return RedisConfig.getJedis().zrem(key,member);
+    public Long zrangeByScore(String key,String...member){
+        return redisConfig.getJedis().zrem(key,member);
     }
 
     /**
@@ -680,8 +687,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Double zscore(String key,String member){
-        return RedisConfig.getJedis().zscore(key,member);
+    public Double zscore(String key,String member){
+        return redisConfig.getJedis().zscore(key,member);
     }
 
     /**
@@ -691,8 +698,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Long zrank(String key,String member){
-        return RedisConfig.getJedis().zrank(key,member);
+    public Long zrank(String key,String member){
+        return redisConfig.getJedis().zrank(key,member);
     }
 
     /**
@@ -702,8 +709,8 @@ public class RedisClient {
      * @param member
      * @return
      */
-    public static Long zrevrank(String key,String member){
-        return RedisConfig.getJedis().zrevrank(key,member);
+    public Long zrevrank(String key,String member){
+        return redisConfig.getJedis().zrevrank(key,member);
     }
 
     /**
@@ -713,8 +720,8 @@ public class RedisClient {
      * @param end
      * @return
      */
-    public static Set<String> ZREVRANGE(String key,long start,long end){
-        return RedisConfig.getJedis().zrevrange(key,start,end);
+    public Set<String> ZREVRANGE(String key,long start,long end){
+        return redisConfig.getJedis().zrevrange(key,start,end);
     }
 
 }

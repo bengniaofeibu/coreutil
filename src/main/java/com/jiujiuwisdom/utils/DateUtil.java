@@ -110,6 +110,24 @@ public final class DateUtil {
 
 
     /**
+     * 比较两个日期的日期差
+     *
+     * @param dateStart 开始时间
+     * @param dateEnd   结束时间
+     * @param unit 天，月，年
+     * @return 时间差
+     */
+    public static long betweenDate(Date dateStart, Date dateEnd, ChronoUnit unit) {
+
+        LocalDateTime localDateStart = dateToLocalDateTime(dateStart);
+
+        LocalDateTime localDateEnd = dateToLocalDateTime(dateEnd);
+
+        return betweenDate(localDateStart,localDateEnd,unit);
+    }
+
+
+    /**
      * 判定localDateStart是否在localDateEnd之后
      *
      * @param localDateStart 开始时间
@@ -213,7 +231,7 @@ public final class DateUtil {
      */
     public static LocalDateTime dateToLocalDateTime(Date date){
            Instant instant = date.toInstant();
-           ZoneId zoneId = ZoneId.systemDefault();
+           ZoneId zoneId = ZoneId.of("GMT+8");
            return LocalDateTime.ofInstant(instant, zoneId);
     }
 }

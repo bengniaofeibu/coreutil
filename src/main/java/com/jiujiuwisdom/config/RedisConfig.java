@@ -15,7 +15,7 @@ public class RedisConfig {
 
     private static final PropertiesConfig APPLICATION = new PropertiesConfig("bootstrap.yml");
 
-    private static JedisPool JEDIS_POOL;
+    private  JedisPool JEDIS_POOL;
 
     private static final String REDIS_TEST_PROPERTIES = "redis/redis-test.properties";
 
@@ -40,6 +40,12 @@ public class RedisConfig {
     private static ReentrantLock LOCK_JEDIS = new ReentrantLock();
 
 
+    public RedisConfig(String hostName,String portName,String pwdName,String dbName){
+
+        //初始化Jedis
+        InitJedisPool(hostName, portName, pwdName, dbName);
+    }
+
    static {
 
        String profile = APPLICATION.getValue("profile");
@@ -49,10 +55,10 @@ public class RedisConfig {
         }
 
         //初始化Jedis
-        InitJedisPool();
+//        InitJedisPool();
     }
 
-    private static void InitJedisPool() {
+    private  void InitJedisPool(String hostName,String portName,String pwdName,String dbName) {
 
 
        //断言是否已经被锁住，没有就继续执行
@@ -69,13 +75,13 @@ public class RedisConfig {
             PROPERTIES = new PropertiesConfig(REDIS_TEST_PROPERTIES);
         }
 
-         String host = PROPERTIES.getValue("redis.host");
+         String host = PROPERTIES.getValue(hostName);
 
-         int port = Integer.valueOf(PROPERTIES.getValue("redis.port"));
+         int port = Integer.valueOf(PROPERTIES.getValue(portName));
 
-         String pwd = PROPERTIES.getValue("redis.pwd");
+         String pwd = PROPERTIES.getValue(pwdName);
 
-         int db = Integer.valueOf(PROPERTIES.getValue("redis.db"));
+         int db = Integer.valueOf(PROPERTIES.getValue(dbName));
 
 
         JedisPoolConfig config = new JedisPoolConfig();
@@ -99,16 +105,13 @@ public class RedisConfig {
         }
     }
 
-    public static Jedis getJedis(){
+    public  Jedis getJedis(){
 
         //断言是否已经被锁住，没有就继续执行
         assert ! LOCK_JEDIS.isHeldByCurrentThread();
 
         LOCK_JEDIS.lock();
 
-        if (JEDIS_POOL == null) {
-            InitJedisPool();
-        }
         Jedis jedis = null;
         try {
             if (JEDIS_POOL != null) {
@@ -135,7 +138,13 @@ public class RedisConfig {
     }
 
     public static void main(String[] args) {
-        String set = RedisClient.set("aaa", "bbb");
+
+        RedisClient redisClient = new RedisClient("redis.host","redis.port","redis.pwd","redis.db");
+        String set = redisClient.set("aaa", "bbb");
         System.out.println(set);
+
+        RedisClient redisClient1 = new RedisClient("redis.host2","redis.port2","redis.pwd2","redis.db2");
+        String set1 = redisClient1.set("aaa", "bbb");
+        System.out.println(set1);
     }
 }
