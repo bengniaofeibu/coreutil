@@ -140,6 +140,24 @@ public final class DateUtil {
 
 
     /**
+     * 判定dateStart是否在dateEnd之后
+     *
+     * @param dateStart 开始时间
+     * @param dateEnd   结束时间
+     * @return
+     */
+    public static boolean isAfter(Date dateStart, Date dateEnd) {
+
+        LocalDateTime localDateStart = dateToLocalDateTime(dateStart);
+
+        LocalDateTime localDateEnd = dateToLocalDateTime(dateEnd);
+
+
+        return localDateStart.isAfter(localDateEnd);
+    }
+
+
+    /**
      * 判定localDateStart是否在localDateEnd之前
      *
      * @param localDateStart 开始时间
@@ -147,6 +165,22 @@ public final class DateUtil {
      * @return
      */
     public static boolean isBefore(LocalDateTime localDateStart, LocalDateTime localDateEnd) {
+        return localDateStart.isBefore(localDateEnd);
+    }
+
+    /**
+     * 判定dateStart是否在dateEnd之前
+     *
+     * @param dateStart 开始时间
+     * @param dateEnd   结束时间
+     * @return
+     */
+    public static boolean isBefore(Date dateStart, Date dateEnd) {
+
+        LocalDateTime localDateStart = dateToLocalDateTime(dateStart);
+
+        LocalDateTime localDateEnd = dateToLocalDateTime(dateEnd);
+
         return localDateStart.isBefore(localDateEnd);
     }
 

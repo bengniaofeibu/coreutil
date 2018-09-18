@@ -159,6 +159,17 @@ public final class BigDecimalUtil {
         return bigDecimal1.divide(bigDecimal2,scale,BigDecimal.ROUND_HALF_UP);
     }
 
+    /**
+     *  保留指定位数
+     * @param var
+     * @param scale
+     * @param type
+     * @return
+     */
+   public static BigDecimal scale(BigDecimal var,int scale ,int type){
+        return var.setScale(scale,type);
+   }
+
 
     private static void checkScale(int scale){
         if (scale < 0) throw new IllegalArgumentException(" scale 必须大于0或等于0");
